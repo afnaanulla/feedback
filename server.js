@@ -4,16 +4,24 @@ const authRoutes = require('./routes/auth');
 const subjectRoutes = require('./routes/subjects');
 const feedbackRoutes = require('./routes/feedback');
 const ratingRoutes = require('./routes/rating');  
+const cors = require('cors');
 
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 
+app.use(cors());
 connectDB();
 
 app.get('/', (req, res) => res.send('API is running...'));
 
+
+
+app.get("/", (req, res) => {
+    res.send("Hello from Vercel!");
+  });
+  
 app.use('/api/auth', authRoutes);
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/feedback', feedbackRoutes);
