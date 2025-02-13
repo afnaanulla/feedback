@@ -54,7 +54,8 @@ router.post("/rate", async (req, res) => {
             const subjectRatings = await Rating.find({ subject: subjectId });
             const totalRating = subjectRatings.reduce((sum, r) => sum + r.rating, 0);
             const studentCount = subjectRatings.length;
-            const averageRating = studentCount > 0 ? (totalRating / studentCount).toFixed(2) : "0.00";
+            const averageRating = studentCount > 0 ? parseFloat((totalRating / studentCount).toFixed(2)) : 0;
+
 
             // ✅ Update Subject's average rating
             await Subject.findByIdAndUpdate(subjectId, { averageRating, studentCount });
